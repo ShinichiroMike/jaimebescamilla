@@ -5,3 +5,9 @@
  */
 
 // You can delete this file if you're not using it
+import React from 'react'
+import Wrapper from './src/components/wrapperComponent'
+
+export const wrapPageElement = ({ element, props }) => (
+  <Wrapper {...props}>{element}</Wrapper>
+)

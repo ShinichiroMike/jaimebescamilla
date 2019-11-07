@@ -7,10 +7,13 @@ import SEO from '../components/seo'
 import Img from 'gatsby-image'
 import { StaticQuery } from 'gatsby'
 
-const SecondPage = () => {
+import Menu from '../components/menu'
+
+const GamesPage = () => {
   return (
     <Layout>
-      <SEO title='Page two' />
+      <Menu />
+      <SEO title='Games' />
       <h1>Hi from the second page</h1>
       <p>Welcome to page 2</p>
 
@@ -53,7 +56,7 @@ const SecondPage = () => {
   )
 }
 
-export default SecondPage
+export default GamesPage
 
 const QUERY = graphql`
   query {
