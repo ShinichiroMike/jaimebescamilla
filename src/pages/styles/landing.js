@@ -21,6 +21,8 @@ export const PositionLayout = styled.div`
 `
 
 export const TitleContainer = styled.div`
+  width: 100%;
+  height: 100%;
   transition: opacity 1s linear;
   z-index: 5;
   display: flex;
@@ -59,7 +61,7 @@ export const PlayerContainer = styled.div`
     top: 0;
     bottom: 0;
     left: 0;
-    ${({ blur }) => blur && 'filter: blur(10px);'}
+    ${({ blur }) => blur && 'filter: blur(10px) grayscale(30%);'}
     transition: filter 1s linear;
   }
 `

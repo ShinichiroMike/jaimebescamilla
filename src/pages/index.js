@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react'
-import ReactPlayer from 'react-player'
+// import ReactPlayer from 'react-player'
+
+import { StaticQuery } from 'gatsby'
+import Img from 'gatsby-image'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
@@ -43,26 +46,31 @@ const LandingPage = () => {
     overlayTimeout()
   }, [])
 
-  return (
-    <LandingContainer>
-      <Layout>
-        <SEO title='Jaime Bermudez Escamilla' />
+  const content = ({
+    wpgraphql: {
+      mediaItems: {
+        nodes: [{ sourceUrl }]
+      }
+    }
+  }) => {
+    console.log(sourceUrl)
+    return (
+      <LandingContainer>
+        <Layout>
+          <SEO title='Jaime Bermudez Escamilla' />
 
-        <PositionLayout>
-          <PlayerContainer blur={blur}>
-            <iframe
-              id='landing-video'
-              class='wp-block-video full-screen dark'
-              src='https://player.vimeo.com/video/329647873?title=0&byline=0&portrait=0&transparent=0&autoplay=1&loop=1'
-              frameborder='0'
-              title='Funny Cat Videos For Kids'
-              webkitallowfullscreen=''
-              mozallowfullscreen=''
-              allowfullscreen=''
-              allow='autoplay'
-              data-ready='true'
-            />
-            {/* <ReactPlayer
+          <PositionLayout>
+            <PlayerContainer blur={blur}>
+              <iframe
+                src={VIDEO_URL}
+                frameborder='0'
+                // webkitallowfullscreen=''
+                // mozallowfullscreen=''
+                // allowfullscreen=''
+                allow='autoplay'
+                data-ready='true'
+              />
+              {/* <ReactPlayer
               volume={0}
               controls
               onStart={overlayTimeout}
@@ -70,22 +78,47 @@ const LandingPage = () => {
               playing
               loop
             /> */}
-          </PlayerContainer>
+            </PlayerContainer>
 
-          <Overlay onClick={onSetVisible} visible={visible}>
-            <MenuContainer>
-              <Menu />
-            </MenuContainer>
+            <Overlay onClick={onSetVisible} visible={visible}>
+              <MenuContainer>
+                <Menu />
+              </MenuContainer>
 
-            <TitleContainer>
-              <h2>Wueee</h2>
-              <h2>Composer & Sound Designer</h2>
-            </TitleContainer>
-          </Overlay>
-        </PositionLayout>
-      </Layout>
-    </LandingContainer>
-  )
+              <TitleContainer>
+                <img
+                  src={sourceUrl}
+                  style={{
+                    minWidth: '650px',
+                    width: '50%',
+                    maxWidth: '800px'
+                  }}
+                />
+                {/* <h2>Wueee</h2>
+                <h2>Composer & Sound Designer</h2> */}
+              </TitleContainer>
+            </Overlay>
+          </PositionLayout>
+        </Layout>
+      </LandingContainer>
+    )
+  }
+
+  return <StaticQuery query={query} render={data => content(data)} />
 }
 
 export default LandingPage
+
+export const query = graphql`
+  query {
+    wpgraphql {
+      mediaItems(where: { title: "landingOverlay" }) {
+        nodes {
+          title
+          slug
+          sourceUrl
+        }
+      }
+    }
+  }
+`
