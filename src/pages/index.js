@@ -16,7 +16,8 @@ import {
   PlayerContainer,
   PositionLayout,
   MenuContainer,
-  TitleContainer
+  TitleContainer,
+  ImgOverlay
 } from './styles/landing'
 
 const VIDEO_URL =
@@ -25,19 +26,17 @@ const OVERLAYTIME = 5000
 
 const LandingPage = () => {
   const player = useContext(PlayerContext)
-  const [visible, setVisible] = useState(0)
-  const [blur, setBlur] = useState(false)
+  const [visible, setVisible] = useState(false)
+  const [menuVisible, setMenuVisible] = useState(false)
 
   const overlayTimeout = () => {
     setTimeout(() => {
-      setVisible(1)
-      setBlur(true)
+      setVisible(true)
+      setMenuVisible(true)
     }, OVERLAYTIME)
   }
   const onSetVisible = () => {
-    // TODO: no affect to the menu
-    setVisible(0)
-    setBlur(false)
+    setVisible(false)
   }
 
   useEffect(() => {
@@ -60,13 +59,10 @@ const LandingPage = () => {
           <SEO title='Jaime Bermudez Escamilla' />
 
           <PositionLayout>
-            <PlayerContainer blur={blur}>
+            <PlayerContainer blur={visible}>
               <iframe
                 src={VIDEO_URL}
                 frameborder='0'
-                // webkitallowfullscreen=''
-                // mozallowfullscreen=''
-                // allowfullscreen=''
                 allow='autoplay'
                 data-ready='true'
               />
@@ -80,22 +76,13 @@ const LandingPage = () => {
             /> */}
             </PlayerContainer>
 
-            <Overlay onClick={onSetVisible} visible={visible}>
-              <MenuContainer>
+            <Overlay onClick={onSetVisible}>
+              <MenuContainer visible={menuVisible}>
                 <Menu />
               </MenuContainer>
 
-              <TitleContainer>
-                <img
-                  src={sourceUrl}
-                  style={{
-                    minWidth: '650px',
-                    width: '50%',
-                    maxWidth: '800px'
-                  }}
-                />
-                {/* <h2>Wueee</h2>
-                <h2>Composer & Sound Designer</h2> */}
+              <TitleContainer visible={visible}>
+                <ImgOverlay src={sourceUrl} />
               </TitleContainer>
             </Overlay>
           </PositionLayout>

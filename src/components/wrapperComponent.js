@@ -1,6 +1,8 @@
 import React, { useState, useContext, createContext } from 'react'
 import ReactPlayer from 'react-player'
 
+import { PlayerContainer } from './styles/player'
+
 export const PlayerContext = createContext({})
 
 const Wrapper = ({ children }) => {
@@ -23,7 +25,14 @@ const Wrapper = ({ children }) => {
 
   return (
     <PlayerContext.Provider
-      value={{ song, visible, playing, setSongToContext, toggleVisible, setPlayingToContext }}
+      value={{
+        song,
+        visible,
+        playing,
+        setSongToContext,
+        toggleVisible,
+        setPlayingToContext
+      }}
     >
       {children}
       {path === '/landing/' ? null : <Player />}
@@ -34,16 +43,9 @@ const Wrapper = ({ children }) => {
 const Player = () => {
   const player = useContext(PlayerContext)
   return (
-    <div>
-      <div
-        style={{
-          display: player.visible ? 'flex' : 'none',
-          height: player.visible ? '160px' : 0
-        }}
-      >
-        <ReactPlayer url={player.song} playing={player.playing} controls />
-      </div>
-    </div>
+    <PlayerContainer visible={player.visible}>
+      <ReactPlayer url={player.song} playing={player.playing} controls />
+    </PlayerContainer>
   )
 }
 

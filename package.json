@@ -20,7 +20,9 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-helmet": "^5.2.1",
+    "react-jinke-music-player": "^4.4.7",
     "react-player": "^1.13.0",
+    "react-slider": "^1.0.1",
     "styled-components": "^4.4.1"
   },
   "devDependencies": {

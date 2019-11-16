@@ -33,6 +33,8 @@ export const TitleContainer = styled.div`
   color: white;
   position: absolute;
   align-self: center;
+  opacity: ${props => (props.visible ? 1 : 0)};
+  will-change: opacity;
 `
 
 export const PlayerContainer = styled.div`
@@ -63,6 +65,7 @@ export const PlayerContainer = styled.div`
     left: 0;
     ${({ blur }) => blur && 'filter: blur(10px) grayscale(30%);'}
     transition: filter 1s linear;
+    will-change: filter;
   }
 `
 
@@ -75,6 +78,10 @@ export const MenuContainer = styled.div`
   background: blue;
   top: 0;
   color: white;
+  opacity: ${props => (props.visible ? 1 : 0)};
+  transition: opacity 1s linear;
+  z-index: 10;
+  will-change: opacity;
 `
 
 export const Overlay = styled.div`
@@ -85,5 +92,9 @@ export const Overlay = styled.div`
   top: 0;
   display: flex;
   justify-content: center;
-  opacity: ${props => props.visible};
+`
+export const ImgOverlay = styled.img`
+  min-width: 650px;
+  width: 50%;
+  max-width: 800px;
 `
